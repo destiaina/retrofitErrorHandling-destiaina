@@ -28,7 +28,7 @@ public class RegisterrActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_registerr);
         name=findViewById(R.id.edtName);
         email=findViewById(R.id.edtEmail);
         password=findViewById(R.id.edtPassword);
@@ -45,7 +45,7 @@ public class RegisterrActivity extends AppCompatActivity {
 
     private void register() {
         ApiInterface service = ServiceGenerator.createService(ApiInterface.class);
-        Call<RegisterResponse> call = service.Register(new RegisterRequest(name.getText().toString(), email.getText().toString(),password.getText().toString(), confirm.getText().toString()));
+        Call<RegisterResponse> call = service.register(new RegisterRequest(name.getText().toString(), email.getText().toString(),password.getText().toString(), confirm.getText().toString()));
         if (name.getText().toString().isEmpty()){
             name.setError("Nama harus diisi");
         }else if (password.getText().toString().length()<8 || password.getText().toString().isEmpty()){
@@ -59,13 +59,13 @@ public class RegisterrActivity extends AppCompatActivity {
             call.enqueue(new Callback<RegisterResponse>() {
                 @Override
                 public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
-                    Toast.makeText(RegisterActivity.this,"Berhasil register", Toast.LENGTH_SHORT).show();
-                    Intent intent=new Intent(RegisterActivity.this, MainActivity.class);
+                    Toast.makeText(RegisterrActivity.this,"Berhasil register", Toast.LENGTH_SHORT).show();
+                    Intent intent=new Intent(RegisterrActivity.this, MainActivity.class);
                     startActivity(intent);
                 }
                 @Override
                 public void onFailure(Call<RegisterResponse> call, Throwable t) {
-                    Toast.makeText(RegisterActivity.this, "Gagal register", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterrActivity.this, "Gagal register", Toast.LENGTH_SHORT).show();
                 }
             });
         }

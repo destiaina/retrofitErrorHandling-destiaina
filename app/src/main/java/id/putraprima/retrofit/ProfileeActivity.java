@@ -24,7 +24,7 @@ public class ProfileeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_profilee);
         id=findViewById(R.id.idText);
         name=findViewById(R.id.nameText);
         email=findViewById(R.id.emailText);
@@ -55,7 +55,7 @@ public class ProfileeActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Data<Profile>> call, Throwable t) {
-                Toast.makeText(ProfileActivity.this, "Gagal Menampilkan Profile", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProfileeActivity.this, "Gagal Menampilkan Profile", Toast.LENGTH_SHORT).show();
             }
         });
     }

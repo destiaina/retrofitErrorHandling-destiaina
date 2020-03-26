@@ -9,7 +9,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import id.putraprima.retrofit.ProfileeActivity;
 import id.putraprima.retrofit.R;
+import id.putraprima.retrofit.RegisterrActivity;
 import id.putraprima.retrofit.api.helper.ServiceGenerator;
 import id.putraprima.retrofit.api.models.LoginRequest;
 import id.putraprima.retrofit.api.models.LoginResponse;
@@ -53,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                 if (response.body().getToken()!=null){
                     token=response.body().getToken();
                     token_type=response.body().getToken_type();
-                    Intent intent=new Intent(MainActivity.this, ProfileActivity.class);
+                    Intent intent=new Intent(MainActivity.this, ProfileeActivity.class);
                     intent.putExtra(TOKEN_KEY, token);
                     intent.putExtra(TOKEN_TYPE, token_type);
                     startActivity(intent);
@@ -72,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void prosesRegister(View view) {
-        Intent intent=new Intent(this, RegisterActivity.class);
+        Intent intent=new Intent(this, RegisterrActivity.class);
         startActivity(intent);
     }
 }
