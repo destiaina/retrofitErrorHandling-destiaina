@@ -15,16 +15,19 @@ import android.widget.Toast;
 import id.putraprima.retrofit.R;
 import id.putraprima.retrofit.api.helper.ServiceGenerator;
 import id.putraprima.retrofit.api.models.AppVersion;
+import id.putraprima.retrofit.api.models.LoginRequest;
 import id.putraprima.retrofit.api.services.ApiInterface;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SplashActivity extends AppCompatActivity {
+
     TextView lblAppName, lblAppTittle, lblAppVersion;
     public static final String NAME_KEY="name";
     public static final String VERSION_KEY="version";
     private static SharedPreferences pref;
+    private LoginRequest loginRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,8 +87,6 @@ public class SplashActivity extends AppCompatActivity {
                         String appName = getAppName(SplashActivity.this);
                         String appVersion = getAppVersion(SplashActivity.this);
                         Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-                        intent.putExtra(NAME_KEY, appName);
-                        intent.putExtra(VERSION_KEY, appVersion);
                         startActivity(intent);
                     }
                 }
