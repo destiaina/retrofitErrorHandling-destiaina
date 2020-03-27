@@ -1,11 +1,12 @@
 package id.putraprima.retrofit.api.models;
 
 public class LoginResponse {
-
     public String token,token_type;
     int expires_in;
 
     //constructor
+
+
     public LoginResponse() {
     }
 

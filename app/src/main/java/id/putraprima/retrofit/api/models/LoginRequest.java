@@ -1,26 +1,29 @@
 package id.putraprima.retrofit.api.models;
 
 public class LoginRequest {
-
-    public String Email, Password;
+    public String email, password;
 
     public LoginRequest() {
     }
 
     public LoginRequest(String email, String password) {
-        this.Email = email;
-        Password = password;
+        this.email = email;
+        this.password = password;
     }
+
     public String getEmail() {
-        return Email;
+        return email;
     }
+
     public void setEmail(String email) {
-        this.Email = email;
+        this.email = email;
     }
+
     public String getPassword() {
-        return Password;
+        return password;
     }
+
     public void setPassword(String password) {
-        this.Password = password;
+        this.password = password;
     }
 }

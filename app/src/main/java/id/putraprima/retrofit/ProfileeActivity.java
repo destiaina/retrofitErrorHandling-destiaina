@@ -1,7 +1,11 @@
 package id.putraprima.retrofit;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.List;
@@ -18,6 +22,11 @@ public class ProfileeActivity extends AppCompatActivity {
 
     public static final String TOKEN_KEY="token";
     public static final String TOKEN_TYPE="token_type";
+    public static final String NAME_KEY="name";
+    public static final String EMAIL_KEY="email";
+    public static final String ID_KEY="id";
+    private static SharedPreferences preference;
+    private String nameText, emailText;
     TextView id, name, email;
     private String token, token_type;
 
@@ -59,4 +68,14 @@ public class ProfileeActivity extends AppCompatActivity {
             }
         });
     }
+    public void prosesUpdate(View view) {
+        Toast.makeText(ProfileeActivity.this,"profile", Toast.LENGTH_SHORT).show();
+        Intent intent=new Intent(ProfileeActivity.this, UpdateActivity.class);
+        intent.putExtra(TOKEN_TYPE, token_type);
+        intent.putExtra(TOKEN_KEY, token);
+        intent.putExtra(NAME_KEY, nameText );
+        intent.putExtra(EMAIL_KEY, emailText);
+        startActivity(intent);
+    }
+
 }

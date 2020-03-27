@@ -48,10 +48,9 @@ public class MainActivity extends AppCompatActivity {
         ApiInterface service = ServiceGenerator.createService(ApiInterface.class);
         Call<LoginResponse> call = service.login(new LoginRequest(email.getText().toString(),password.getText().toString()));
         call.enqueue(new Callback<LoginResponse>(){
-
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                Toast.makeText(MainActivity.this, response.body().getToken(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Berhasil login", Toast.LENGTH_SHORT).show();
                 if (response.body().getToken()!=null){
                     token=response.body().getToken();
                     token_type=response.body().getToken_type();
@@ -60,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra(TOKEN_TYPE, token_type);
                     startActivity(intent);
                 }
+
+
             }
 
             @Override
