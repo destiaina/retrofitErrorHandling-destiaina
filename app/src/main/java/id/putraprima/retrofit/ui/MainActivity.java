@@ -3,7 +3,11 @@ package id.putraprima.retrofit.ui;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -13,6 +17,8 @@ import id.putraprima.retrofit.ProfileeActivity;
 import id.putraprima.retrofit.R;
 import id.putraprima.retrofit.RegisterrActivity;
 import id.putraprima.retrofit.api.helper.ServiceGenerator;
+import id.putraprima.retrofit.api.models.ApiError;
+import id.putraprima.retrofit.api.models.ErrorUtils;
 import id.putraprima.retrofit.api.models.LoginRequest;
 import id.putraprima.retrofit.api.models.LoginResponse;
 import id.putraprima.retrofit.api.services.ApiInterface;
@@ -51,15 +57,33 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 Toast.makeText(MainActivity.this, "Berhasil login", Toast.LENGTH_SHORT).show();
-                if (response.body().getToken()!=null){
+
+                if (response.isSuccessful()){
+                    SharedPreferences preference = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                    SharedPreferences.Editor editor = preference.edit();
+                    editor.putString("token", response.body().getToken());
+                    editor.apply();
                     token=response.body().getToken();
                     token_type=response.body().getToken_type();
                     Intent intent=new Intent(MainActivity.this, ProfileeActivity.class);
                     intent.putExtra(TOKEN_KEY, token);
                     intent.putExtra(TOKEN_TYPE, token_type);
                     startActivity(intent);
-                }
 
+                } else if (email.getText().toString().length()==0 ){
+                    ApiError error = ErrorUtils.parseError(response);
+                    Toast.makeText(MainActivity.this, error.getError().getEmail().get(0), Toast.LENGTH_SHORT).show();
+
+                }else if (password.getText().toString().length()==0){
+                    ApiError error = ErrorUtils.parseError(response);
+
+                    Toast.makeText(MainActivity.this, error.getError().getPassword().get(0), Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    ApiError error = ErrorUtils.parseError(response);
+                    Toast.makeText(MainActivity.this, error.getError().getEmail().get(0), Toast.LENGTH_SHORT).show();
+
+                }
 
             }
 
@@ -70,6 +94,20 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    //private boolean validasiInput() {
+    //    if(TextUtils.isEmpty(email.getText())){
+    //        Toast.makeText(this, "Enter your Email", Toast.LENGTH_SHORT).show();
+    //        return false;
+    //    } else if(TextUtils.isEmpty(password.getText())){
+    //        Toast.makeText(this, "Enter your password", Toast.LENGTH_SHORT).show();
+    //        return false;
+    //    } else if(!Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()){
+    //        Toast.makeText(this, "Your email address is invalid", Toast.LENGTH_SHORT).show();
+    //        return false;
+    //    } else{
+    //        return true;
+    //    }
+    //}
     public void prosesLogin(View view) {
         login();
     }
